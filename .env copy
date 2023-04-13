@@ -1,0 +1,4 @@
+DB_USER= escola
+DB_PWD= ********
+DB_NAME= Escola
+DB_SERVER= localhost\\SQLEXPRESS
