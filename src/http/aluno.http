@@ -1,0 +1,35 @@
+//teste de requisições rest - alunos
+@baseURL = http://localhost:4000/api
+
+//GET - Listando os alunos
+GET {{{baseURL}}}/aluno
+Content-Type: application/json
+
+###
+//POST - Insere um novo aluno
+POST {{{baseURL}}}/aluno
+Content-Type: application/json
+
+{
+    "ra": "5648",
+    "nome": "Ana Carolina",
+    "cpf": "333.444.222-78",
+    "dataNasc": "2000-04-01",
+}
+
+###
+//DELETE - Excluindo um aluno pelo ra
+DELETE {{{baseURL}}}/aluno/5648
+Content-Type: application/json
+
+###
+//PUT - Altera o novo aluno
+PUT {{{baseURL}}}/aluno
+Content-Type: application/json
+
+{
+    "ra": "5648",
+    "nome": "Ana Carolina",
+    "cpf": "333.444.222-78",
+    "dataNasc": "2000-04-01",
+}
