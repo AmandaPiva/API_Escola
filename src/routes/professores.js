@@ -7,14 +7,14 @@ import { defaultConfiguration } from 'express/lib/application'
 const router = express.Router()
 
 /**
- * listando os alunos
+ * listando os professores
  */
 
 router.get('/', (req, res) => {
     try{
         sql.connect(sqlConfig).then(pool =>{
             return pool. request()
-            .execute('SP_S_ALL_ALUNO')
+            .execute('SP_S_ALL_PROFESSOR')
         }).then(dados => {
             res.status(200).json(dados.recordset)
         }).catch(err => {
@@ -27,18 +27,19 @@ router.get('/', (req, res) => {
 })
 
 /**
- * Inserindo um novo aluno
+ * Inserindo um novo professor
  */
 
 router.post('/', (req, res) => {
-    const {ra, nome, cpf, dataNasc} = 
+    const {rf, nome, cpf, dataNasc ,especialidade} = 
         req.body
     return pool.request()
-        .input('RA', sql.Int, ra)
+        .input('RF', sql.Int, rf)
         .input('NOME', sql.VarChar(50), nome)
         .input('CPF', sql.Char(20), cpf)
         .input('DATANASCI', sql.Date, dataNasc)
-        .execute('SP_I_ESC_ALUNO')
+        .input('ESPECIALIDADE', sql.VarChar(50), especialidade)
+        .execute('SP_I_ESC_PROFESSOR')
 }).then(dados => {
     res.status(200).json(dados.output)
 
@@ -47,35 +48,36 @@ router.post('/', (req, res) => {
 })
 
 /**
- * Altera um veículo existente
+ * Altera um professor existente
  */
 
 router.put("/", (req,res) =>{
-    const {ra, nome, cpf, dataNasc} = req.body
+    const {rf, nome, cpf, dataNasc ,especialidade} = req.body
     return pool.request()
-        .input('RA', sql.Int, ra)
-        .input('NOME', sql.VarChar(50), nome)
-        .input('CPF', sql.Char(20), cpf)
-        .input('DATANASCI', sql.Date, dataNasc)
-        .execute('SP_UP_ESC_ALUNO')        
+    .input('RF', sql.Int, rf)
+    .input('NOME', sql.VarChar(50), nome)
+    .input('CPF', sql.Char(20), cpf)
+    .input('DATANASCI', sql.Date, dataNasc)
+    .input('ESPECIALIDADE', sql.VarChar(50), especialidade)
+        .execute('SP_UP_ESC_PROFESSOR')        
 }).then(dados => {
-    res.status(200).json(`Aluno ${ra} alterado com sucesso`);
+    res.status(200).json(`Professor ${rf} alterado com sucesso`);
 }).catch(err => {
     res.status(400).json(err.message)
 })
 
 /**
- * Deletando um aluno
+ * Deletando um professor
  */
 
-router.delete(':/ra', (req, res) => {
+router.delete(':/rf', (req, res) => {
     sql.connect(sqlConfig).then(pool => {
         const ra = req.params.ra
         return pool.request()
-        .input('RA', sql.Int, ra)
-        .execute('SP_D_ESC_ALUNO')
+        .input('RF', sql.Int, rf)
+        .execute('SP_D_ESC_PROFESSOR')
     }).then(dados => {
-        res.status(200).json(`Aluno ${ra} removido com sucesso`)
+        res.status(200).json(`Professor ${ra} removido com sucesso`)
     }).catch(err => {
         res.status(400).json(err.message0)
     })
