@@ -2,7 +2,7 @@
 import express from 'express'
 import sql, {pool} from 'mssql'
 import { sqlConfig } from '../sql/config'
-import { defaultConfiguration } from 'express/lib/application'
+
 
 const router = express.Router()
 
