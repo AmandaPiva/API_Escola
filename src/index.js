@@ -1,7 +1,7 @@
 //ADICIONANDO UMA PORTA PRINCIPAL PARA O SERVIDOR
 import express from "express";
 import cors from "cors";
-import rotasAluno from "./routes/alunos"
+import rotasAluno from "./routes/alunos.js"
 
 const app = express(); //instanciando o express
 const port = 4000; //nossa porta principal
