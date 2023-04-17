@@ -7,14 +7,38 @@ import { sqlConfig } from '../sql/config.js'
 const router = express.Router()
 
 /**
- * listando os alunos
+ * listando apenas os alunos efetuando o filtro
  */
 
 router.get('/', (req, res) => {
     try {
+        const filtro = '' 
         sql.connect(sqlConfig).then(pool => {
             return pool.request()
-                .execute('SP_S_ALL_ALUNO')
+            .input('FILTRO', sql.VarChar(100), filtro)
+                .execute('SP_S_ESC_ALUNO')
+        }).then(dados => {
+            res.status(200).json(dados.recordset)
+        }).catch(err => {
+            res.status(400).json(err)
+        })
+    }
+    catch (err) {
+        console.error(`Erro ao conectar ${err.message}`)
+    }
+})
+
+/**
+ * listando apenas os alunos efetuando o filtro
+ */
+
+router.get('/:filtro', (req, res) => {
+    try {
+        const filtro = req.params.filtro 
+        sql.connect(sqlConfig).then(pool => {
+            return pool.request()
+            .input('FILTRO', sql.VarChar(100), filtro)
+                .execute('SP_S_ESC_ALUNO')
         }).then(dados => {
             res.status(200).json(dados.recordset)
         }).catch(err => {
@@ -36,10 +60,8 @@ router.post('/', (req, res) => {
         const { ra, nome, cpf, dataNasc } =
             req.body
             return pool.request()
-            .input('RA', sql.Int, ra)
             .input('NOME', sql.VarChar(50), nome)
             .input('CPF', sql.Char(20), cpf)
-            .input('DATANASCI', sql.Date, dataNasc)
             .execute('SP_I_ESC_ALUNO')
     }).then(dados => {
         res.status(200).json(dados.output)

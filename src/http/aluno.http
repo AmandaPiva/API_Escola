@@ -3,7 +3,12 @@
 
 //ALUNOS
 //GET - Listando os alunos
-GET {{{baseURL}}}/aluno
+GET {{baseURL}}/aluno
+Content-Type: application/json
+
+###
+//GET - Listando os alunos
+GET {{baseURL}}/aluno/gomes
 Content-Type: application/json
 
 ###
