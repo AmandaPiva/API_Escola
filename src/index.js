@@ -15,7 +15,7 @@ app.use(express.json())
  * Rotas do aluno
  */
 app.use('/api/aluno', rotasAluno)
-app.use('/api/professores', rotasProfessor)
+app.use('/api/professores', rotasProfessor);
 /**
  * Rotas públicas
  */
