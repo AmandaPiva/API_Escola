@@ -3,4 +3,5 @@ Trabalho da disciplina Banco de dados, onde usamos o framework Express do Node.j
 
 ## Nome dos integrantes: 
 Amanda Maria Marques Piva
+
 Heberty Guelfi do Prado
