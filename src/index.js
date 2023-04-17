@@ -1,7 +1,8 @@
 //ADICIONANDO UMA PORTA PRINCIPAL PARA O SERVIDOR
-import express from "express";
-import cors from "cors";
-import rotasAluno from "./routes/alunos.js"
+import express from 'express';
+import cors from 'cors';
+import rotasAluno from './routes/alunos.js'
+import rotasProfessor from './routes/professores.js'
 
 const app = express(); //instanciando o express
 const port = 4000; //nossa porta principal
@@ -14,7 +15,7 @@ app.use(express.json())
  * Rotas do aluno
  */
 app.use('/api/aluno', rotasAluno)
-
+app.use('/api/professores', rotasProfessor)
 /**
  * Rotas públicas
  */

@@ -35,7 +35,7 @@ CREATE TABLE ESC_ALUNO(
 */
 CREATE OR ALTER PROCEDURE SP_I_ESC_ALUNO
 
-(@nome varchar(100), @cpf char(20))
+(@nome varchar(100), @cpf char(14))
 AS
 
 DECLARE @CPF_ALUNO int
@@ -49,13 +49,6 @@ IF(@CPF_ALUNO > 0)
 	RAISERROR('O cpf já existe no BD', 15,1)
 	RETURN
 	END
-
---VERIFICANDO SE O CPF ESTÁ NO FORMATO CORRETO
-IF(@cpf NOT LIKE '[0-9][0-9][0-9][.][0-9][0-9][0-9][.][0-9][0-9][0-9][-][0-9][0-9]')
-	BEGIN
-		RAISERROR('O cpf deve ser informato no formato 999.999.999-99', 15,1)
-		RETURN 
-		END
 
 --VERIFICANDO SE O CPF ESTÁ NO FORMATO CORRETO
 IF(@cpf NOT LIKE '[0-9][0-9][0-9][.][0-9][0-9][0-9][.][0-9][0-9][0-9][-][0-9][0-9]')
@@ -87,7 +80,7 @@ SELECT * FROM ESC_ALUNO
 
 CREATE OR ALTER PROCEDURE SP_I_ESC_PROFESSOR
 
-(@nome varchar(100), @cpf char(20), @especialidade varchar(100))
+(@nome varchar(100), @cpf char(14), @especialidade varchar(100))
 AS
 
 DECLARE @CPF_PROFESSOR int
@@ -144,7 +137,7 @@ CREATE PROCEDURE SP_U_ESC_ALUNO
 
 @ra INT,
 @nome VARCHAR(100),
-@cpf VARCHAR(20)
+@cpf VARCHAR(14)
 
 AS
 	DECLARE @ALUNO INT
@@ -182,7 +175,7 @@ CREATE PROCEDURE SP_UP_ESC_PROFE
 
 @rf INT,
 @nome VARCHAR(100),
-@cpf VARCHAR(20),
+@cpf VARCHAR(14),
 @especialidade VARCHAR(50)
 
 AS
