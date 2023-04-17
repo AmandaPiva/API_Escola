@@ -12,9 +12,8 @@ POST {{{baseURL}}}/aluno
 Content-Type: application/json
 
 {
-    "ra": "2",
-    "nome": "Rafael Matos",
-    "cpf": "516.492.987-47",
+    "nome": "Heberty",
+    "cpf": "516.874.987-47",
 }
 
 ###
