@@ -11,9 +11,29 @@ const router = express.Router()
 
 router.get('/', (req, res) => {
     try {
+         const filtro = '' 
         sql.connect(sqlConfig).then(pool => {
             return pool.request()
-                .execute('SP_S_ALL_PROFESSOR')
+            .input('FILTRO', sql.VarChar(100), filtro)
+                .execute('SP_S_ESC_PROFESSOR')
+        }).then(dados => {
+            res.status(200).json(dados.recordset)
+        }).catch(err => {
+            res.status(400).json(err)
+        })
+    }
+    catch (err) {
+        console.error(`Erro ao conectar ${err.message}`)
+    }
+})
+
+router.get('/:filtro', (req, res) => {
+    try {
+         const filtro = req.params.filtro 
+        sql.connect(sqlConfig).then(pool => {
+            return pool.request()
+            .input('FILTRO', sql.VarChar(100), filtro)
+                .execute('SP_S_ESC_PROFESSOR')
         }).then(dados => {
             res.status(200).json(dados.recordset)
         }).catch(err => {
@@ -31,13 +51,11 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     sql.connect(sqlConfig).then(pool => {
-        const { rf, nome, cpf, dataNasc, especialidade } =
+        const { nome, cpf, especialidade } =
             req.body
         return pool.request()
-            .input('RF', sql.Int, rf)
             .input('NOME', sql.VarChar(50), nome)
             .input('CPF', sql.Char(20), cpf)
-            .input('DATANASCI', sql.Date, dataNasc)
             .input('ESPECIALIDADE', sql.VarChar(50), especialidade)
             .execute('SP_I_ESC_PROFESSOR')
     }).then(dados => {
@@ -54,14 +72,13 @@ router.post('/', (req, res) => {
 
 router.put("/", (req, res) => {
     sql.connect(sqlConfig).then(pool => {
-        const { rf, nome, cpf, dataNasc, especialidade } = req.body
+        const { rf, nome, cpf, especialidade } = req.body
         return pool.request()
             .input('RF', sql.Int, rf)
             .input('NOME', sql.VarChar(50), nome)
             .input('CPF', sql.Char(20), cpf)
-            .input('DATANASCI', sql.Date, dataNasc)
             .input('ESPECIALIDADE', sql.VarChar(50), especialidade)
-            .execute('SP_UP_ESC_PROFESSOR')
+            .execute('SP_U_ESC_PROFESSOR')
     }).then(dados => {
         res.status(200).json(`Professor ${rf} alterado com sucesso`);
     }).catch(err => {
@@ -73,16 +90,17 @@ router.put("/", (req, res) => {
  * Deletando um professor
  */
 
-router.delete(':/rf', (req, res) => {
+router.delete('/', (req, res) => {
     sql.connect(sqlConfig).then(pool => {
-        const ra = req.params.ra
+        const {rf} = req.body; 
+
         return pool.request()
             .input('RF', sql.Int, rf)
             .execute('SP_D_ESC_PROFESSOR')
     }).then(dados => {
-        res.status(200).json(`Professor ${ra} removido com sucesso`)
+        res.status(200).json(`Professor ${rf} removido com sucesso`)
     }).catch(err => {
-        res.status(400).json(err.message0)
+        res.status(400).json(err.message)
     })
 })
 

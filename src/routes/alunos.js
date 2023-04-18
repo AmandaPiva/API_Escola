@@ -71,18 +71,17 @@ router.post('/', (req, res) => {
     })
 })
 /**
- * Altera um veículo existente
+ * Altera um aluno existente
  */
 
 router.put("/", (req, res) => {
     sql.connect(sqlConfig).then(pool => {
-        const { ra, nome, cpf, dataNasc } = req.body
+        const { ra, nome, cpf} = req.body
         return pool.request()
             .input('RA', sql.Int, ra)
             .input('NOME', sql.VarChar(50), nome)
             .input('CPF', sql.Char(20), cpf)
-            .input('DATANASCI', sql.Date, dataNasc)
-            .execute('SP_UP_ESC_ALUNO')
+            .execute('SP_U_ESC_ALUNO')
     }).then(dados => {
         res.status(200).json(`Aluno ${ra} alterado com sucesso`);
     }).catch(err => {
@@ -103,7 +102,7 @@ router.delete(':/ra', (req, res) => {
     }).then(dados => {
         res.status(200).json(`Aluno ${ra} removido com sucesso`)
     }).catch(err => {
-        res.status(400).json(err.message0)
+        res.status(400).json(err.message)
     })
 })
 

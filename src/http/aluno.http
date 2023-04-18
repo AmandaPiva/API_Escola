@@ -13,63 +13,68 @@ Content-Type: application/json
 
 ###
 //POST - Insere um novo aluno
-POST {{{baseURL}}}/aluno
+POST {{baseURL}}/aluno
 Content-Type: application/json
 
 {
     "nome": "Heberty",
-    "cpf": "516.874.987-47",
+    "cpf": "516.874.987-47"
 }
 
 ###
 //DELETE - Excluindo um aluno pelo ra
-DELETE {{{baseURL}}}/aluno/2
+DELETE {{baseURL}}/aluno/2
 Content-Type: application/json
 
 ###
 //PUT - Altera o novo aluno
-PUT {{{baseURL}}}/aluno
+PUT {{baseURL}}/aluno
 Content-Type: application/json
 
 {
-    "ra": "2",
+    "ra": "3",
     "nome": "Rafael Gomes",
-    "cpf": "516.492.987-68",
+    "cpf": "516.000.987-68"
 }
 
 //PROFESSOR
 
+###
 //GET - Listando os professores
-GET {{{baseURL}}}/professor
+GET {{baseURL}}/professores
 Content-Type: application/json
 
 ###
 //POST - Insere um novo professor
-POST {{{baseURL}}}/professor
+POST {{baseURL}}/professores
 Content-Type: application/json
 
 {
-"rf": "5648",
 "nome": "Ana Carolina",
 "cpf": "333.444.222-78",
-"especialidade": "Biologia",
+"especialidade": "Biologia"
 }
 
 ###
 //DELETE - Excluindo um professor pelo rf
-DELETE {{{baseURL}}}/professor/2
-Content-Type: application/json
-
-###
-//PUT - Altera o novo professor
-PUT {{{baseURL}}}/professor
+DELETE {{baseURL}}/professores
 Content-Type: application/json
 
 {
 
-"rf": "2314",
-"nome": "Ana Bizarra",
-"cpf": "123.764.422-08",
-"especialidade": "Historia",
+"rf": "2"
+}
+
+###
+//PUT - Altera o novo professor
+PUT {{baseURL}}/professores/
+Content-Type: application/json
+
+{
+
+"rf": "2",
+"nome": "Marina",
+"cpf": "123.789.422-08",
+"especialidade": "Artes"
 
 }
